@@ -11,9 +11,17 @@ public class calculateResults
 	private double numImp;
 	private double numTest;	
 	private double numMan;
+	private double numODes;
+	private double numOImp;
+	private double numOTest;	
+	private double numOMan;
 	private double moneySpentPerYear;
+	private double moneySpent;
+	private double offshoreMoneySpentPerYear;
 	private double overheadSpentPerYear;
+	private double offshoreOverheadPerYear;
 	private double numSandwiches;	
+	private double numOffshoreSandwiches;
 	private double budget;
 	private double difference;
 
@@ -29,64 +37,65 @@ public class calculateResults
 	{//runs the entire program based on what we need to output
 		System.out.println("Info without defect:");
 		this.calcNumSandwichesPerMonth(0.0);
-
-		des.step(numSandwiches, des.getTimeStep1());
-		des.step(numSandwiches, des.getTimeStep2());
-		imp.step(numSandwiches, imp.getTimeStep3());
-		imp.step(numSandwiches, imp.getTimeStep4());
-		imp.step(numSandwiches, imp.getTimeStep5());
-		imp.step(numSandwiches, imp.getTimeStep6());
-		imp.step(numSandwiches, imp.getTimeStep7());
-		test.step(numSandwiches, test.getTimeStep8());
+		this.calcNumOffshoreSandwichesPerMonth(0.0);
 		
 		this.calcNumEmployees();
+		this.calcNumOffshoreEmployees();
+
 		
 		System.out.println("Number of Designers needed: " + numDes);
 		System.out.println("Number of Implementation needed: " + numImp);
 		System.out.println("Number of Testers needed: " + numTest); 
 		System.out.println("Number of Managers needed: " + numMan);
+		System.out.println("Number of offshore Designers needed: " + numODes);
+		System.out.println("Number of offshore Implementation needed: " + numOImp);
+		System.out.println("Number of offshore Testers needed: " + numOTest); 
+		System.out.println("Number of offshore Managers needed: " + numOMan);
 
 		this.calculateMoneySpentPerYear();
-		System.out.println("Amount of money spent in Ruples: " + moneySpentPerYear);
+		this.calculateOffshoreMoneySpentPerYear();
+		moneySpent = moneySpentPerYear + offshoreMoneySpentPerYear + (100000*78.69);
+		System.out.println("Amount of money spent in Ruples (including extra 100000 budget): " + moneySpent);
 
 		this.calcBudget();
 		this.calcDifference();
 	
 		this.calculateOverheadPerYear();
-		System.out.println("Amount of overhead spent in Ruples: " + overheadSpentPerYear);
+		this.calculateOffshoreOverheadPerYear();
+		double overhead =overheadSpentPerYear + offshoreOverheadPerYear;
+		System.out.println("Amount of overhead spent in Ruples: " + overhead);
 		
-		this.calcTest1();
+		
 		
 		System.out.println("Info with defect:");
 		this.calcNumSandwichesPerMonth(0.10);
-
-		des.step(numSandwiches, des.getTimeStep1());
-		des.step(numSandwiches, des.getTimeStep2());
-		imp.step(numSandwiches, imp.getTimeStep3());
-		imp.step(numSandwiches, imp.getTimeStep4());
-		imp.step(numSandwiches, imp.getTimeStep5());
-		imp.step(numSandwiches, imp.getTimeStep6());
-		imp.step(numSandwiches, imp.getTimeStep7());
-		test.step(numSandwiches, test.getTimeStep8());
+		this.calcNumOffshoreSandwichesPerMonth(0.30);
 		
 		this.calcNumEmployees();
+		this.calcNumOffshoreEmployees();
+
 		
 		System.out.println("Number of Designers needed: " + numDes);
 		System.out.println("Number of Implementation needed: " + numImp);
 		System.out.println("Number of Testers needed: " + numTest); 
 		System.out.println("Number of Managers needed: " + numMan);
+		System.out.println("Number of offshore Designers needed: " + numODes);
+		System.out.println("Number of offshore Implementation needed: " + numOImp);
+		System.out.println("Number of offshore Testers needed: " + numOTest); 
+		System.out.println("Number of offshore Managers needed: " + numOMan);
 
 		this.calculateMoneySpentPerYear();
-		System.out.println("Amount of money spent in Ruples: " + moneySpentPerYear);
+		this.calculateOffshoreMoneySpentPerYear();
+		moneySpent = moneySpentPerYear + offshoreMoneySpentPerYear + (100000*78.69);
+		System.out.println("Amount of money spent in Ruples (including extra 100000 budget): " + moneySpent);
 
 		this.calcBudget();
 		this.calcDifference();
 	
 		this.calculateOverheadPerYear();
-		System.out.println("Amount of overhead spent in Ruples: " + overheadSpentPerYear);
-		
-		this.calcTest2();
-		
+		this.calculateOffshoreOverheadPerYear();
+		overhead =overheadSpentPerYear + offshoreOverheadPerYear;
+		System.out.println("Amount of overhead spent in Ruples: " + overhead);
 	}
 
 	public void calculateMoneySpentPerYear()
@@ -94,6 +103,11 @@ public class calculateResults
 		moneySpentPerYear = ((numDes* des.calcSalary(des.getSalary(), 160)) + (numImp* imp.calcSalary(imp.getSalary(), 160)) + (numTest* test.calcSalary(test.getSalary(), 160)) + (numMan * man.calcSalary(man.getSalary(), 160)))*78.69;
 	}
 	
+	public void calculateOffshoreMoneySpentPerYear()
+	{//add all salaries and convert to rubles
+		offshoreMoneySpentPerYear = ((numODes* des.calcSalary(des.getSalary()*0.25, 160)) + (numOImp* imp.calcSalary(imp.getSalary()*0.25, 160)) + (numOTest* test.calcSalary(test.getSalary()*0.25, 160)) + (numOMan * man.calcSalary(man.getSalary()*0.25, 160)))*78.69;
+	}
+
 	public boolean testMoneySpent()
 	{//test calculateMoneySpentPerYear
 
@@ -117,6 +131,11 @@ public class calculateResults
 		overheadSpentPerYear = ((numDes* des.calcSalary(des.getSalary(), 40)) + (numImp* imp.calcSalary(imp.getSalary(), 40)) + (numTest* test.calcSalary(test.getSalary(), 40)) + (numMan * man.calcSalary(man.getSalary(), 40)))*78.69;
 	}
 
+	public void calculateOffshoreOverheadPerYear()
+	{//add all salaries and convert to rubles
+		offshoreOverheadPerYear = ((numODes* des.calcSalary(des.getSalary()*0.25, 40)) + (numOImp* imp.calcSalary(imp.getSalary()*0.25, 40)) + (numOTest* test.calcSalary(test.getSalary()*0.25, 40)) + (numOMan * man.calcSalary(man.getSalary()*0.25, 40)))*78.69;
+	}
+
 	public void calcNumEmployees()
 	{//calculates the number of employees needed to make the necesary sandwiches based off how long it takes for that person to do their steps
 		numDes = Math.ceil(des.returnTotalHours(numSandwiches, des.getTimeStep1(), des.getTimeStep2())/120);
@@ -124,20 +143,32 @@ public class calculateResults
 		numTest = Math.ceil(test.returnTotalHours(numSandwiches, test.getTimeStep8())/120);
 		numMan = Math.ceil((numDes + numImp + numTest)/30.0);
 	}
+	public void calcNumOffshoreEmployees()
+	{//calculates the number of employees needed to make the necesary sandwiches based off how long it takes for that person to do their steps
+		numODes = Math.ceil(des.returnTotalHours(numOffshoreSandwiches, des.getTimeStep1(), des.getTimeStep2())/120);
+		numOImp = Math.ceil(imp.returnTotalHours(numOffshoreSandwiches, imp.getTimeStep3(),imp.getTimeStep4(), imp.getTimeStep5(), imp.getTimeStep6(),imp.getTimeStep7())/120);
+		numOTest = Math.ceil(test.returnTotalHours(numOffshoreSandwiches, test.getTimeStep8())/120);
+		numOMan = Math.ceil((numODes + numOImp + numOTest)/30.0);
+	}
 
 	public void calcNumSandwichesPerMonth( double defect)
 	{//calculates the number of sandwiches to make per month
 		numSandwiches = (500000 + (250000 * 0.75) + (250000 * 0.25))/12.0;
 		if (defect > 0.0)
 		{// if there is a defect factor that in
-			numSandwiches += numSandwiches*0.10;
+			numSandwiches += numSandwiches*defect;
 		}
 	}
 
-	public boolean testNumSand()
-	{//tests if the number of sandwiches func works 
-		return numSandwiches == 62500.0;
-	}	
+	public void calcNumOffshoreSandwichesPerMonth( double defect)
+	{//calculates the number of sandwiches to make per month
+		numOffshoreSandwiches = ((250000 * 0.75) + (250000 * 0.25))/12.0;
+		if (defect > 0.0)
+		{// if there is a defect factor that in
+			numOffshoreSandwiches += numOffshoreSandwiches*defect;
+		}
+	}
+	
 
 	public void calcBudget()
 	{//converts budget to ruples
@@ -146,14 +177,14 @@ public class calculateResults
 
 	public void calcDifference()
 	{//calculates whether you are under or over budget
-		if (budget > moneySpentPerYear)
+		if (budget > moneySpent)
 		{
-			difference = budget - moneySpentPerYear;
+			difference = budget - moneySpent;
 			System.out.println("The company is " + difference + " Ruples under budget");
 		}
 		else
 		{
-			difference = moneySpentPerYear - budget;
+			difference = moneySpent - budget;
 			System.out.println("The company is " + difference + " Ruples over budget");
 		}
 	}
@@ -164,7 +195,7 @@ public class calculateResults
 		System.out.println();
 		System.out.println("Testing number of employees!");
 		this.testValues(this.numDes, 2.0, "number of designers");
-		this.testValues(this.numImp, 9.0, "number of implementers");
+		this.testValues(this.numImp, 7.0, "number of implementers");
 		this.testValues(this.numTest, 24.0, "number of testers");
 		this.testValues(this.numMan, 2.0, "number of managers");	
 		System.out.println();		
@@ -175,7 +206,7 @@ public class calculateResults
 		System.out.println();
 		System.out.println("Testing number of employees!");
 		this.testValues(this.numDes, 3.0, "number of designers");
-		this.testValues(this.numImp, 10.0, "number of implementers");
+		this.testValues(this.numImp, 8.0, "number of implementers");
 		this.testValues(this.numTest, 26.0, "number of testers");
 		this.testValues(this.numMan, 2.0, "number of managers");
 		System.out.println();

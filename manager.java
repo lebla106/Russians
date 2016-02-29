@@ -1,12 +1,12 @@
 public class manager implements employee
 {//class for manager position
-	private int salary=150;
+	public int salary=150;
 	public int getSalary()
 	{
 		return salary;
 	}
 
-	public double calcSalary(int salary, int hours)
+	public double calcSalary(double salary, int hours)
 	{//calculats yearly salary
 		return (salary * hours * 12);
 	}

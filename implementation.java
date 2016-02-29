@@ -1,8 +1,8 @@
 public class implementation implements employee
 {//class for implementation which makes the sandwich
-	private int salary = 125;
-	private double timeStep3 = 23.34;
-	private double timeStep4 = 22.15;
+	public int salary = 125;
+	private double timeStep3 = 16.7;
+	private double timeStep4 = 15.45;
 	private double timeStep5 = 5.36;
 	private double timeStep6 = 5.38;
 	private double timeStep7 = 3.02;	
@@ -46,7 +46,7 @@ public class implementation implements employee
 		totalHoursPerMonth = this.step(numSandwiches, time3) + this.step(numSandwiches, time4) + this.step(numSandwiches, time5) + this.step(numSandwiches, time6) + this.step(numSandwiches, time7);
 		return(totalHoursPerMonth);
 	}
-	public double calcSalary(int salary, int hours)
+	public double calcSalary(double salary, int hours)
 	{//calculats yearly salary
 		return (salary * hours * 12);
 	}

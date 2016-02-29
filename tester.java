@@ -1,6 +1,6 @@
 public class tester implements employee
 {// class for tester who eats sandwich
-	private int salary = 75;
+	public int salary = 75;
 	private double timeStep8 = 162.99;
 	public double totalHoursPerMonth;
 	
@@ -25,7 +25,7 @@ public class tester implements employee
 		totalHoursPerMonth = this.step(numberOfSandwichesPerMonth, time);
 		return (totalHoursPerMonth);
 	}
-	public double calcSalary(int salary, int hours)
+	public double calcSalary(double salary, int hours)
 	{//calculats yearly salary
 		return (salary * hours * 12);
 	}

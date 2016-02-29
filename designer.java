@@ -1,6 +1,6 @@
 public class designer implements employee
 {//class for designer: gets ingredients for sandwich
-	private int salary = 100;
+	public int salary = 100;
 	private double timeStep1 = 10.74;
 	private double timeStep2 = 2.89;	
 	public double totalHoursPerMonth;
@@ -31,7 +31,7 @@ public class designer implements employee
 		return (totalHoursPerMonth);
 	}
 
-	public double calcSalary(int salary, int hours)
+	public double calcSalary(double salary, int hours)
 	{//calculats yearly salary
 		return (salary * hours * 12);
 	}
