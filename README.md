@@ -1,8 +1,6 @@
 # Russians
 PB &amp; J
 
-Chapman University 
-
-SE 410 - Software Processes &amp; Management
-
-Assignment 4
+Chapman University; J 
+SE 410 - Software Processes &amp; Management; J
+Assignment 4; J
